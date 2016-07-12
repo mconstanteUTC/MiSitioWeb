@@ -20,7 +20,7 @@ class Empleados extends CI_Controller{
 
         //Campos Obligatorios al momento de guardar/editar
         $crud->required_fields('ID_SUC','ID_PER','USERNAME_USU','PASSWORD_USU','NOMBRE_USU','APELLIDO_USU');
-        $crud->columns('ID_SUC','ID_PER','USERNAME_USU','NOMBRE_USU','APELLIDO_USU');
+        $crud->columns('ID_SUC','ID_PER','USERNAME_USU','NOMBRE_USU','APELLI_USU');
 
 
 
@@ -36,7 +36,7 @@ class Empleados extends CI_Controller{
         $crud->field_type('PASSWORD_USU', 'password');                
         $output = $crud->render();
         $this->load->view('encabezado'); 
-        $this->load->view('/empleados/admin',$output); 
+        $this->load->view('/empleados/in',$output); 
        $this->load->view('pie'); 
     
     
