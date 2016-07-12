@@ -44,7 +44,7 @@ class Usuarios extends CI_Controller{
             
         }else
         {
-            $this -> session -> set_flashdata('errorLogin','Usuario o contraseña incorrectos');
+            $this -> session -> set_flashdata('errorLogin','Usuario o Contraseña Incorrectos');
             redirect('/usuarios/login');
         }
     }
