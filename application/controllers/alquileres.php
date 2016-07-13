@@ -36,15 +36,14 @@ class Alquileres extends CI_Controller{
        $crud->unset_read();
         $crud->unset_delete();
         
-        
         $crud->display_as('ID_USU','Bibliotecaria');       
         $crud->set_relation('ID_USU','usuario','{NOMBRE_USU} {APELLIDO_USU}');
-         $crud->set_relation('ID_CLI','cliente','{NOMBRE_CLI} {APELLIDO_CLI}');
+        $crud->set_relation('ID_CLI','cliente','{NOMBRE_CLI} {APELLIDO_CLI}');
         $output= $crud->render();
       
        $this->load->view('encabezado'); 
        $this->load->view('/alquileres/index',$output); 
-        $this->load->view('pie'); 
+       $this->load->view('pie'); 
          
      }else{
          
@@ -53,24 +52,17 @@ class Alquileres extends CI_Controller{
     
     }
     
-        
-       
      function nuevo(){
-         
-     //setlocale(LC_ALL,"es_ES");
-         
+      //setlocale(LC_ALL,"es_ES");
       $fecha=date('Y-m-d');
-
-     if($this->session->userdata('perfil')=='EMPLEADO') {
-      
-       $ultimoAlquiler=$this->alquiler->consultarEstadoUltimoAlquiler($this->session->userdata('id'));
-       $data['clientes']=$this->cliente->consultarClientes();
-       $data['promociones']=$this->promocion->consultarPromociones();
+         if($this->session->userdata('perfil')=='EMPLEADO') {
+         $ultimoAlquiler=$this->alquiler->consultarEstadoUltimoAlquiler($this->session->userdata('id'));
+         $data['clientes']=$this->cliente->consultarClientes();
+         $data['promociones']=$this->promocion->consultarPromociones();
          
        
         if($ultimoAlquiler){
             if($ultimoAlquiler->ESTADO_ALQ){
-
                 $parametros=array(
                     "FECHA_ALQ" => $fecha,
                     "ID_USU" => $this->session->userdata('id'),
@@ -108,7 +100,6 @@ class Alquileres extends CI_Controller{
                 $data['cliente']=$this->alquiler->consultarCliente($alquiler->ID_ALQ);
           
                 $output->data=$data;
-            
         }
                                                                 
        $this->load->view('encabezado'); 
@@ -129,63 +120,38 @@ class Alquileres extends CI_Controller{
        $crud->display_as('ID_LIB','Libro');
        $crud->display_as('NOMBRE_CLI','Nombre Cliente');
        $crud->display_as('APELLIDO_CLI','Apellido Cliente');
-
-
-      $crud->set_relation('ID_LIB','libro','ID: VE_00{ID_LIB} - TIPO: {TIPO_LIB} - TITULO: {TITULO_LIB} - EDITORIAL: {EDITORIAL_LIB} - AÑO: {ANIO_LIB} - AUTOR: {AUTOR_LIB} - PAGINAS: {PAGINAS_LIB}  ',array('ID_SUC' => $this->session->userdata('idSucursal')));  
-       
-        return $crud->render();
+       $crud->set_relation('ID_LIB','libro','ID: VE_00{ID_LIB} - TIPO: {TIPO_LIB} - TITULO: {TITULO_LIB} - EDITORIAL: {EDITORIAL_LIB} - AÑO: {ANIO_LIB} - AUTOR: {AUTOR_LIB} - PAGINAS: {PAGINAS_LIB}  ',array('ID_SUC' => $this->session->userdata('idSucursal')));  
+       return $crud->render();
     }
 
-    
-   
-  
     function guardarCliente(){
-        
-         $data=array(
+        $data=array(
         'ID_CLI'=> $this->input->post('ID_CLI'),         
         );
- 
-        
-        $id=$this->input->post('ID_ALQ');
-        
+       $id=$this->input->post('ID_ALQ');
        $this->alquiler->guardarCliente($data,$id);
-        
-        $this -> session -> set_flashdata('clienteGuardado','Datos del cliente guardados exitosamente!');
-        
-        redirect('/alquileres/nuevo');
-        
-        
-    }
-    
-    
-    
-    
-    function finalizarAlquiler($ID_ALQ){
+       $this -> session -> set_flashdata('clienteGuardado','Datos del cliente guardados exitosamente!');
+       redirect('/alquileres/nuevo');
+     }
+     
+     function finalizarAlquiler($ID_ALQ){
         $data=array(
             'ESTADO_ALQ' => 1
         );
         
         $this->alquiler->finalizarAlquiler($data,$ID_ALQ);
-        
-        redirect('/alquileres/');
-    }
+         redirect('/alquileres/');
+      }
     
     
     function consultarClase(){
-     
-        $data['clase']=$this->detalle->consultarMasSolicitado();
-        
-        
-      $this->load->view('encabezado'); 
+       $data['clase']=$this->detalle->consultarMasSolicitado();
+       $this->load->view('encabezado'); 
        $this->load->view('/alquileres/clase',$data); 
        $this->load->view('pie'); 
-        
-        
-    }
+     }
     
       function consultarFechas(){
-          
-             
         $crud = new grocery_crud();        
         $crud->set_theme('datatables'); 
         $crud->set_table('alquiler'); 
@@ -193,9 +159,7 @@ class Alquileres extends CI_Controller{
         //$crud->where('alquiler.ID_SUC',  $this->session->userdata('idSucursal'));         
         $crud->columns('ID_ALQ','FECHA_ALQ','ESTADO_ALQ','ID_USU','ID_CLI');
         $crud->unset_export();
-         $crud->unset_print();        
-       
-    
+        $crud->unset_print();        
        $crud->display_as('ID_CLI','Cliente');
        $crud->display_as('FECHA_ALQ','Fecha');
        $crud->display_as('ESTADO_ALQ','Estado');
@@ -205,15 +169,12 @@ class Alquileres extends CI_Controller{
        $crud->unset_read();
         $crud->unset_delete();
         
-        
-        $crud->display_as('ID_USU','Bibliotecaria');       
+         $crud->display_as('ID_USU','Bibliotecaria');       
         $crud->set_relation('ID_USU','usuario','{NOMBRE_USU} {APELLIDO_USU}');
          $crud->set_relation('ID_CLI','cliente','{NOMBRE_CLI} {APELLIDO_CLI}');
         $output= $crud->render();
  
-        
-        
-       $this->load->view('encabezado'); 
+        $this->load->view('encabezado'); 
        $this->load->view('/alquileres/fecha',$output); 
        $this->load->view('pie'); 
         
@@ -222,18 +183,14 @@ class Alquileres extends CI_Controller{
     
     
     public function  consultarMes(){
-    
        $data['mes']=$this->alquiler->consultarMes();
        $this->load->view('encabezado'); 
        $this->load->view('/alquileres/mes',$data); 
        $this->load->view('pie'); 
-        
-        
-    }
+      }
     
     
      public function  consultarSucursal(){
-    
        $data['sucursal']=$this->alquiler->consultarSucursal();
        $this->load->view('encabezado'); 
        $this->load->view('/alquileres/sucursal',$data); 
@@ -241,8 +198,5 @@ class Alquileres extends CI_Controller{
         
         
     }
-    
-    
- 
-}
+ }
 ?>
