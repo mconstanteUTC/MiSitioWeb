@@ -22,7 +22,7 @@
  
      
     
-    <div class="well" style="background-color: #008080;">
+    <div class="well">
     <h3 class="text-center">  <b>Sucursales</b></h3>
     <br>
     <?php echo $output ?>
