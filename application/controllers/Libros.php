@@ -41,12 +41,12 @@ class Libros extends CI_Controller{
      
          
        $crud->set_relation('ID_SUC','sucursal','Ciudad: {CIUDAD_SUC}');
-       $crud->set_relation('ID_VER','version','Descripcion. {DESCRIPCION_VER} - Precio: {PRECIO_VER}');       
+              
          
        $crud->field_type('PASSWORD_USU', 'password');                
        $output = $crud->render();
        $this->load->view('encabezado'); 
-       $this->load->view('/vehiculos/admin',$output); 
+       $this->load->view('/libros/admin',$output); 
        $this->load->view('pie'); 
     
     
