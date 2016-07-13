@@ -13,9 +13,9 @@ class Versiones extends CI_Controller{
          $crud->unset_export();
         $crud->unset_print(); 
         $crud->set_table('version'); 
-        $crud->set_subject('Versiones de Vehiculos'); 
+        $crud->set_subject('Versiones de Libros'); 
         //Campos Obligatorios al momento de guardar/editar
-        $crud->required_fields('DESCRIPCION_VER','PRECIO_VER');
+        $crud->required_fields('DESCRIPCION_VER');
        
        //Titulos
         $crud->display_as('DESCRIPCION_VER','Descripción');
